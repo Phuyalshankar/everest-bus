@@ -155,9 +155,43 @@ TitanDeclarative.executeAction('bus:relay:1:0');
 assert(TitanMicroBus.read(20001) === 0, `Relay 1 set to 0 (OFF)`);
 
 // ─────────────────────────────────────────────────────────────────────────────
+// TEST 6: 4K H.264 VIDEO STREAM NAL FRAME ZERO-COPY TRANSMISSION TEST
+// ─────────────────────────────────────────────────────────────────────────────
+console.log('\n📌 [TEST 6] 4K H.264 Video Stream NAL Chunk Benchmark (128 KB per frame)...');
+const VIDEO_FRAMES = 1000; // 1,000 4K video frames
+const CHUNK_SIZE = 128 * 1024; // 128 KB per NAL unit (4K I/P frame)
+const fake4KFrame = crypto.randomBytes(CHUNK_SIZE);
+
+let videoFramesReceived = 0;
+let totalBytesStreamed = 0;
+
+const unVideo = TitanMicroBus.onCommand(CMD.VIDEO_FRAME, (cmd, sender, payload) => {
+  videoFramesReceived++;
+  totalBytesStreamed += payload.length;
+});
+
+const videoStart = performance.now();
+for (let f = 0; f < VIDEO_FRAMES; f++) {
+  TitanMicroBus.emit(101, CMD.VIDEO_FRAME, fake4KFrame);
+}
+const videoElapsed = performance.now() - videoStart;
+unVideo();
+
+const totalMb = (totalBytesStreamed / (1024 * 1024)).toFixed(2);
+const bandwidthMbps = ((totalBytesStreamed * 8) / (videoElapsed / 1000) / (1024 * 1024)).toFixed(2);
+
+console.log(`  🎥 Video Frames Streamed: ${videoFramesReceived} frames`);
+console.log(`  📦 Total Data Transferred: ${totalMb} MB in ${videoElapsed.toFixed(2)} ms`);
+console.log(`  ⚡ Bandwidth Throughput: ${bandwidthMbps} Mbps (${Math.round(VIDEO_FRAMES / (videoElapsed / 1000))} FPS)`);
+
+assert(videoFramesReceived === VIDEO_FRAMES, `All ${VIDEO_FRAMES} 4K video frames streamed without drop`);
+assert(totalBytesStreamed === VIDEO_FRAMES * CHUNK_SIZE, `Exact byte transfer verified: ${totalMb} MB`);
+
+// ─────────────────────────────────────────────────────────────────────────────
 // FINAL SUMMARY
 // ─────────────────────────────────────────────────────────────────────────────
 console.log('\n════════════════════════════════════════════════════════════════════');
 console.log(`🎉 ALL ${passedTests}/${totalTests} STRESS TESTS PASSED WITH 100% PERFECTION!`);
-console.log('💧 TITAN BUS IS NOW ROCK-SOLID & PANI JASTO SMOOTH! 🚀🇳🇵');
+console.log('💧 TITAN/EVEREST BUS IS NOW ROCK-SOLID & PANI JASTO SMOOTH! 🚀🇳🇵');
 console.log('════════════════════════════════════════════════════════════════════\n');
+

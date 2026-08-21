@@ -73,16 +73,19 @@ Offset 22: Flags (0x00=Binary, 0x01=JSON) | Offset 23: CRC8 / Checksum | Offset 
 
 ---
 
-## 🗺️ 4. 2-Byte (16-Bit: 0 - 65,535) Memory-Mapped Register Map
+## 🗺️ 4. Global 16-Bit (0x0000 - 0xFFFF) Memory Register Standard
 
-| Register Range | Domain | Usage & Description (Numbers 0 - 65,535) |
-| :--- | :--- | :--- |
-| **`0 - 999`** | **Core & Navigation** | Active Screen (`10`), Drawer (`11`), Theme (`12`), Bus Status (`1`) |
-| **`1,000 - 9,999`** | **UI & Visual Components** | Dial Buffer (`1000`), 16x2 LCD (`1010`), Speedometer (`1020`) |
-| **`10,000 - 19,999`** | **Storage & Database** | Contact Rows (`10001..`), Call History Cache, User Profiles |
-| **`20,000 - 29,999`** | **Hardware Relays & GPIO**| Relays 1..256 (`20001..20256`), Solenoid Locks, PWM Motors |
-| **`30,000 - 39,999`** | **Sensors & Telemetry** | CPU Load (`30001`), Battery ADC (`30002`), Temperature (`30003`) |
-| **`40,000 - 65,535`** | **Custom / Plugin Space**| User Dynamic Add-ons & 3rd-Party IoT Extensions |
+The 16-bit address space is divided into clean **4K (4,096-Register) Domain Blocks**. The domain can be extracted in **1 single CPU clock cycle** via `domain = (reg >> 12)`:
+
+| 16-Bit Hex Range | Domain | Description & Sub-Engine | Practical Examples |
+| :--- | :--- | :--- | :--- |
+| **`0x0000 - 0x0FFF`** | **⚡ Hardware / IoT** | Relays, Sensors, Solenoids, Motors | `0x0001` = Relay 1, `0x0030` = Temp ADC |
+| **`0x1000 - 0x1FFF`** | **🎨 UI / Graphics** | JSX Elements, Screens, Dials, Vectors | `0x1000` = Route, `0x1010` = Dial Input |
+| **`0x2000 - 0x2FFF`** | **🗄️ Database** | CRUD, Fast In-Memory Sync, Search | `0x2000` = Query, `0x2101` = Contact 1 |
+| **`0x3000 - 0x3FFF`** | **🎥 Video / NVR** | 4K H.264/H.265 Streams, RTSP, PTZ | `0x3000` = Cam ID, `0x3020` = Motion Alert |
+| **`0x4000 - 0x4FFF`** | **🎙️ Audio / PBX** | VoIP Calls, Opus Frames, DTMF Tones | `0x4000` = Call State, `0x4001` = Ext |
+| **`0x5000 - 0x5FFF`** | **🧠 AI / ML Edge** | Face Recognition, Vision Inference | `0x5000` = Model, `0x5010` = Face Match |
+| **`0x6000 - 0xFFFF`** | **🧩 Custom Plugins**| 40,960 Registers for 3rd-Party Plugins| User Extensions, Community Add-ons |
 
 ---
 

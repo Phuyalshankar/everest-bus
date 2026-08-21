@@ -1,0 +1,11 @@
+node_modules/
+*.log
+*.exe
+*.o
+*.a
+*.so
+*.dll
+.DS_Store
+dist/
+build/
+.vscode/

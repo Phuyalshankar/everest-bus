@@ -1,0 +1,30 @@
+{
+  "name": "everest-bus",
+  "version": "1.0.0",
+  "description": "🏔️ Everest Bus — World's First Cyber-Physical Fieldbus Engine for UI, Database, DSP Audio, and Microcontrollers",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/hard_stress_test.js"
+  },
+  "keywords": [
+    "everest-bus",
+    "fieldbus",
+    "cyber-physical",
+    "modbus",
+    "can-bus",
+    "iot",
+    "danphe",
+    "telecom",
+    "pbx",
+    "esp32",
+    "nodemcu",
+    "nepal"
+  ],
+  "author": "Danphe Team (Nepal)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Phuyalshankar/everest-bus.git"
+  }
+}
+

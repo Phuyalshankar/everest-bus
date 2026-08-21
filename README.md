@@ -1,10 +1,11 @@
 # 🏔️ Everest Bus (`everest-bus`)
 ═══════════════════════════════════════════════════════════════════════════════
 > **World's First Unified Cyber-Physical Fieldbus Engine**  
-> Unifying **Declarative UI, Memory Databases, C++ DSP Audio, and Microcontrollers (ESP32/NodeMCU)** on a single 24-byte binary data highway.
+> Unifying **Declarative UI, 4K H.264/H.265 Video Streaming, Realtime Audio DSP, Memory Databases, and Microcontrollers (ESP32/NodeMCU)** on a single 24-byte binary data highway.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/Phuyalshankar/everest-bus)
 [![Performance](https://img.shields.io/badge/speed-94M%20ops%2Fsec-blue.svg)](https://github.com/Phuyalshankar/everest-bus)
+[![Media Stream](https://img.shields.io/badge/video-4K%20H.264%2FH.265-red.svg)](https://github.com/Phuyalshankar/everest-bus)
 [![Footprint](https://img.shields.io/badge/core%20footprint-%3C%202.5%20KB-orange.svg)](https://github.com/Phuyalshankar/everest-bus)
 [![Platform](https://img.shields.io/badge/platform-ESP32%20%7C%20Android%20%7C%20Linux%20%7C%20Node.js-purple.svg)](https://github.com/Phuyalshankar/everest-bus)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -13,9 +14,10 @@
 
 ## 🌟 1. Why Everest Bus?
 
-Traditional software stacks suffer from glue-code bloat: REST endpoints, WebSockets, Redux state reducers, GraphQL resolvers, and proprietary IoT hardware bridges.
+Unlike traditional low-bandwidth industrial buses (CAN-Bus, Modbus) that are restricted to tiny 8-byte packets, **Everest Bus is a High-Bandwidth Cyber-Physical Binary Highway with a 32-bit Payload Capacity (up to 2 Gigabytes per packet)**.
 
 **Everest Bus treats Everything as a Peer Node on a Single 24-Byte Binary Data Highway**:
+- 🎥 **4K Video & Audio Streams**: Native Zero-Copy streaming for H.264/H.265 video frames, RTSP intercom cameras, and raw Opus/G.711 audio directly into GPU decoders (`MediaCodec`).
 - 🚀 **Zero Serialization Overhead**: Direct 2-Byte (`0x0000 - 0xFFFF`) memory-mapped registers rather than bloated JSON.
 - ⚡ **Physical-Virtual Parity**: Pressing a virtual touch button in a JSX mobile app emits the exact bit-for-bit binary frame as pressing a physical 4x4 matrix switch on a wall.
 - 🔬 **Ultra-Micro Footprint**: `< 2.5 KB` core engine with 0 heap allocation, running effortlessly on a $0.50 microcontroller or an Android flagship phone.
@@ -32,6 +34,7 @@ Traditional software stacks suffer from glue-code bloat: REST endpoints, WebSock
              │ • Touch Keypad (JSX Component)    │   │ • 4x4 Physical Keypad Matrix      │
              │ • Virtual 16x2 LCD Display        │   │ • Physical 16x2 Character LCD     │
              │ • In-Memory Database Registers    │   │ • Physical Relays & Solenoids     │
+             │ • 4K Video & Opus Audio Stream    │   │ • RTSP NVR Cameras & Microphones  │
              │ • Page Navigation State           │   │ • Physical Sensors (ADC / Temp)   │
              └───────────────────────────────────┘   └───────────────────────────────────┘
 ```

@@ -19,6 +19,8 @@ const CMD = {
   REJECT:         0x12,
   HANGUP:         0x13,
   AUDIO_FRAME:    0x14,
+  VIDEO_FRAME:    0x15,
+  CHAT_MESSAGE:   0x20,
   KEYPAD_EVENT:   0x21,
   DISPLAY_WRITE:  0x22,
   RELAY_SET:      0x23,

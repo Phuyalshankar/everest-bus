@@ -27,6 +27,8 @@ extern "C" {
 #define REG_SPEEDOMETER_VALUE    1020 // 0 - 240 Speedometer gauge
 #define REG_VU_METER_LEFT        1021 // Audio VU Left (0 - 100)
 #define REG_VU_METER_RIGHT       1022 // Audio VU Right (0 - 100)
+#define REG_VIDEO_FEED_ID        1030 // Active Video Stream ID
+#define REG_VIDEO_STREAM_FPS     1031 // Realtime Video Frame Rate
 
 // 3. Database & Storage Space (10,000 - 19,999)
 #define REG_DB_CONTACT_BASE      10000 // Contact IDs: 10000 + Contact ID

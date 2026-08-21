@@ -73,19 +73,19 @@ Offset 22: Flags (0x00=Binary, 0x01=JSON) | Offset 23: CRC8 / Checksum | Offset 
 
 ---
 
-## 🗺️ 4. Global 16-Bit (0x0000 - 0xFFFF) Memory Register Standard
+## 🗺️ 4. Global 16-Bit Register Standard (Clean Decimal Numbers)
 
-The 16-bit address space is divided into clean **4K (4,096-Register) Domain Blocks**. The domain can be extracted in **1 single CPU clock cycle** via `domain = (reg >> 12)`:
+Developers write **clean decimal numbers (`1000`, `2001`, `3000`)** in JSX and code, while the engine internally compiles them into ultra-fast 2-byte registers:
 
-| 16-Bit Hex Range | Domain | Description & Sub-Engine | Practical Examples |
-| :--- | :--- | :--- | :--- |
-| **`0x0000 - 0x0FFF`** | **⚡ Hardware / IoT** | Relays, Sensors, Solenoids, Motors | `0x0001` = Relay 1, `0x0030` = Temp ADC |
-| **`0x1000 - 0x1FFF`** | **🎨 UI / Graphics** | JSX Elements, Screens, Dials, Vectors | `0x1000` = Route, `0x1010` = Dial Input |
-| **`0x2000 - 0x2FFF`** | **🗄️ Database** | CRUD, Fast In-Memory Sync, Search | `0x2000` = Query, `0x2101` = Contact 1 |
-| **`0x3000 - 0x3FFF`** | **🎥 Video / NVR** | 4K H.264/H.265 Streams, RTSP, PTZ | `0x3000` = Cam ID, `0x3020` = Motion Alert |
-| **`0x4000 - 0x4FFF`** | **🎙️ Audio / PBX** | VoIP Calls, Opus Frames, DTMF Tones | `0x4000` = Call State, `0x4001` = Ext |
-| **`0x5000 - 0x5FFF`** | **🧠 AI / ML Edge** | Face Recognition, Vision Inference | `0x5000` = Model, `0x5010` = Face Match |
-| **`0x6000 - 0xFFFF`** | **🧩 Custom Plugins**| 40,960 Registers for 3rd-Party Plugins| User Extensions, Community Add-ons |
+| Decimal Range (नम्बरहरू) | Hex Range | Domain | Sub-Engine Description | Practical Examples |
+| :--- | :--- | :--- | :--- | :--- |
+| **`0 - 999`** | `0x0000..` | **⚡ Hardware / IoT** | Relays, Sensors, Solenoids, Motors | `1` = Relay 1, `30` = Temp ADC |
+| **`1,000 - 1,999`** | `0x03E8..` | **🎨 UI / Graphics** | JSX Elements, Screens, Dials, Vectors | `1000` = Route, `1010` = Dial Input |
+| **`2,000 - 2,999`** | `0x07D0..` | **🗄️ Database** | In-Memory Sync, Records, Search | `2000` = Search, `2001` = Cart Total |
+| **`3,000 - 3,999`** | `0x0BB8..` | **🎥 Video / NVR** | 4K H.264/H.265 Streams, RTSP, PTZ | `3000` = Cam ID, `3020` = Motion Alert |
+| **`4,000 - 4,999`** | `0x0FA0..` | **🎙️ Audio / PBX** | VoIP Calls, Opus Frames, DTMF Tones | `4000` = Call State, `4001` = Partner Ext |
+| **`5,000 - 5,999`** | `0x1388..` | **🧠 AI / ML Edge** | Face Recognition, Vision Inference | `5000` = Model ID, `5010` = Face Match |
+| **`6,000 - 65,535`** | `0x1770..` | **🧩 Custom Plugins**| Open space for user extensions | `6000+` = 3rd-Party Plugins |
 
 ---
 

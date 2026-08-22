@@ -1,7 +1,7 @@
-'use strict';
+﻿'use strict';
 
 /**
- * 🚀 TITAN MICRO-BUS (Universal JS / Node / Dolphin Runtime)
+ * 🏔️ EVEREST BUS / TITAN MICRO-BUS (Universal JS / Node / Dolphin Runtime)
  * ═════════════════════════════════════════════════════════════════════
  * 2-Byte UInt16 (0 - 65,535) Memory-Mapped Register Bus &
  * 24-Byte Binary Packet Highway.
@@ -41,8 +41,8 @@ class TitanMicroBusEngine {
 
   initDefaults() {
     this.write(1, 'ONLINE');
-    this.write(10, 'Home');
-    this.write(1000, '');
+    this.write(1000, 'Home');
+    this.write(1010, '');
   }
 
   write(reg, value, silent = false) {
@@ -154,25 +154,25 @@ class TitanDeclarative {
 
       case 'key': {
         const key = parts[2];
-        const current = TitanMicroBus.read(1000, '');
+        const current = TitanMicroBus.read(1010, '');
         const updated = current + key;
-        TitanMicroBus.write(1000, updated);
+        TitanMicroBus.write(1010, updated);
         TitanMicroBus.emit(101, CMD.KEYPAD_EVENT, key);
         return true;
       }
 
       case 'backspace': {
-        const current = TitanMicroBus.read(1000, '');
+        const current = TitanMicroBus.read(1010, '');
         const updated = current.length > 0 ? current.slice(0, -1) : '';
-        TitanMicroBus.write(1000, updated);
+        TitanMicroBus.write(1010, updated);
         return true;
       }
 
       case 'dial': {
-        const ext = parts[2] || TitanMicroBus.read(1000, '');
+        const ext = parts[2] || TitanMicroBus.read(1010, '');
         if (ext) {
           TitanMicroBus.emit(101, CMD.INVITE, ext);
-          TitanMicroBus.write(10, 'ActiveCall');
+          TitanMicroBus.write(1000, 'ActiveCall');
         }
         return true;
       }
@@ -181,14 +181,14 @@ class TitanDeclarative {
         const relayId = parseInt(parts[2], 10);
         const state = parts[3] === 'on' || parts[3] === '1' ? 1 : 0;
         const pulse = parts[4] ? parseInt(parts[4], 10) : 0;
-        TitanMicroBus.write(20000 + relayId, state);
+        TitanMicroBus.write(relayId, state);
         TitanMicroBus.emit(300, CMD.RELAY_SET, { relayId, state, pulse });
         return true;
       }
 
       case 'screen': {
         const screenName = parts[2];
-        TitanMicroBus.write(10, screenName);
+        TitanMicroBus.write(1000, screenName);
         return true;
       }
 
@@ -205,10 +205,14 @@ class TitanDeclarative {
 }
 
 const TitanMicroBus = new TitanMicroBusEngine();
+const EverestBus = TitanMicroBus;
+const EverestDeclarative = TitanDeclarative;
 
 module.exports = {
   TitanMicroBus,
   TitanDeclarative,
+  EverestBus,
+  EverestDeclarative,
   CMD,
   TITAN_SIGNATURE,
   TITAN_VERSION,
